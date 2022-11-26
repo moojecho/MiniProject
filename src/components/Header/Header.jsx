@@ -27,28 +27,26 @@ const Header = () => {
 const HeaderLayout = styled.div`
   width: 99.8vw;
   height: 10vh;
-  border: solid 1px;
+  border-bottom: 1px solid #dbdbdb;
   display: flex;
   align-items: center;
+  justify-content: space-between;
 `
 
 const LogoLayout = styled.div`
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 80px;
   margin-left: 5vw;
 `;
 
 const Logo = styled.img`
-  width: 80px;
+  width: 90px;
   height: 80px;
   margin-left: -20px;
-  margin-top: -10px;
-  background-color: red;
   cursor: pointer;
 `;
 const LoginSignLayout = styled.div`
-  width: 11vw;
+  width: 200px;
   display: inline-flex;
-  float: right;
 `;
 export default Header;

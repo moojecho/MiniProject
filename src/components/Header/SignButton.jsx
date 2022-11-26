@@ -4,14 +4,20 @@ import styled from "styled-components";
 const SignButton = () => {
   
   
-    return <Sign_Button></Sign_Button>;
+    return <Sign_Button>회원가입</Sign_Button>;
 };
 
 const Sign_Button = styled.div`
   width: 70px;
   height: 35px;
-  margin: auto;
-  background-color: green;
+  color: white;
+  background-color: orange;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export default SignButton;

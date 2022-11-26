@@ -4,14 +4,21 @@ import styled from "styled-components";
 const LoginButton = () => {
   
   
-    return <Login_Button></Login_Button>;
+    return <Login_Button>
+      로그인
+    </Login_Button>;
 };
 
 const Login_Button = styled.div`
   width: 60px;
   height: 35px;
-  margin: auto;
-  background-color: orange;
+  margin-right: 15px;
+  border: 1px solid #dbdbdb;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 `;
 
 export default LoginButton;

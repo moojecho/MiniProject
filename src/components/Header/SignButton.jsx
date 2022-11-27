@@ -13,7 +13,7 @@ const Sign_Button = styled.div`
   color: white;
   background-color: orange;
   border: 1px solid #dbdbdb;
-  border-radius: 8px;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;

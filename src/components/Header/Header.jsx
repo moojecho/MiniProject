@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <HeaderLayout>
       <LogoLayout>
-        <Logo src={logo} />
+        <Logo src={logo}/>
       </LogoLayout>
       <LoginSignLayout>
         <LoginButton />

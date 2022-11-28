@@ -3,12 +3,14 @@ import { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 import {Header} from "../components/Header/index"
+import {Banner} from "../components/Banner/index"
 
 const MainPage = () => {
  
   return (
   <div>
     <Header/>
+    <Banner/>
   </div>
   );
 };

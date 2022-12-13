@@ -1,31 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled, { keyframes } from "styled-components";
 
 const Carousel = () => {
     const [id,setId] = useState(0);
-    const [moveMargin, setMoveMargin] = useState(0)
+    const [moveCarousel, setMoveCarousel] = useState(0)
 
     const plusId = () =>{
-        if(id===2){setId(0)}
-        else{
-          setId(id+1);  
+        if(moveCarousel===-100){
+            setMoveCarousel(0);
+        } else{
+          setMoveCarousel(moveCarousel-100); 
         }
-        setMoveMargin(moveMargin-100);
-        
     }
     const minusId = () =>{
-        if(id===0) setId(2);
-        setId(id-1);
+        if(moveCarousel===0){
+            setMoveCarousel(-100);
+        } else{
+          setMoveCarousel(moveCarousel+100); 
+        }
     }
-    console.log(id);
- console.log(moveMargin);
+
+    useEffect(()=>{
+        setTimeout(()=>moveCarousel===-100?setMoveCarousel(0):setMoveCarousel(moveCarousel-100),3000)
+    },[moveCarousel])
+
+ console.log(moveCarousel);
   return (
     <CarouselLayout>
-        <CarouselLeftButton onClick={()=>minusId()}>-</CarouselLeftButton>
-        <CarouselImage/>
-        <CarouselImage style={{background:'black'}}/>
-       <CarouselImage style={{background:'pink'}}/>
-        <CarouselRightButton onClick={()=>plusId()}>+</CarouselRightButton>
+        <CarouselLeftButton onClick={()=>minusId()}>{'<'}</CarouselLeftButton>
+        <CarouselImage margin={moveCarousel}/>
+        <CarouselImage margin={moveCarousel} style={{background:'black'}}/>
+        <CarouselRightButton onClick={()=>plusId()}>{'>'}</CarouselRightButton>
     </CarouselLayout>
   );
 };
@@ -33,15 +38,13 @@ const Carousel = () => {
 const moveImage = keyframes`
 from{
     margin-left: 0%;
-  }
-  to{
-    margin-left: -300%;
-  }
+}to{
+    margin-left: -50%;
+}
 `;
 const CarouselLayout = styled.div`
   width: 100vw;
   height: 44vh;
-  background-color: red;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -51,14 +54,15 @@ const CarouselLayout = styled.div`
 const CarouselImage = styled.img`
 width: 100vw;
   height: 43vh;
-  margin: moveMargin;
+  margin-left: ${props=>props.margin}%;
   background-color: green;
   background-position: 50% 50%;
   background-size: contain;
   background-repeat: no-repeat;
   flex: none;
+  transition: all 1.5s ease-out;
   z-index: 1;
-  animation: ${moveImage} 5s 5s  linear ;
+  /* animation: ${moveImage} 5s 2s infinite linear ; */
 `
 
 const CarouselLeftButton = styled.button`

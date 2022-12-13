@@ -22,7 +22,8 @@
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.5",
     "styled-reset": "^4.4.2",
-    "web-vitals": "^3.0.1"
+    "web-vitals": "^3.0.1",
+    "yarn": "^1.22.19"
   },
   "scripts": {
     "start:server": "json-server --watch db.json --port 3001",

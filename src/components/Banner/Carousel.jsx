@@ -1,89 +1,96 @@
-import { useEffect, useState } from "react";
+import React,{ useEffect, useState,useRef } from "react";
 import styled, { keyframes } from "styled-components";
 
 const Carousel = () => {
-    const [id,setId] = useState(0);
-    const [moveCarousel, setMoveCarousel] = useState(0)
+const TOTAL_SLIDES = 2;
+const [currentSlide, setCurrentSlide] = useState(0);
+const slideRef = useRef(null);
 
-    const plusId = () =>{
-        if(moveCarousel===-100){
-            setMoveCarousel(0);
-        } else{
-          setMoveCarousel(moveCarousel-100); 
-        }
+  const NextSlide = () => {
+    if (currentSlide >= TOTAL_SLIDES) {
+      
+      setCurrentSlide(0); 
+    } else {
+      setCurrentSlide(currentSlide + 1);
     }
-    const minusId = () =>{
-        if(moveCarousel===0){
-            setMoveCarousel(-100);
-        } else{
-          setMoveCarousel(moveCarousel+100); 
-        }
+  };
+  
+  const PrevSlide = () => {
+    if (currentSlide === 0) {
+      setCurrentSlide(TOTAL_SLIDES); 
+    } else {
+      setCurrentSlide(currentSlide - 1);
     }
+  };
 
-    useEffect(()=>{
-        setTimeout(()=>moveCarousel===-100?setMoveCarousel(0):setMoveCarousel(moveCarousel-100),3000)
-    },[moveCarousel])
+  useEffect(() => {
+    slideRef.current.style.transition = 'all 0.5s ease-in-out';
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
+  }, [currentSlide]);
 
- console.log(moveCarousel);
+  console.log(currentSlide,'currentSlide');
+//   console.log(slideRef.current.style,'slideRef.current.style');
   return (
-    <CarouselLayout>
-        <CarouselLeftButton onClick={()=>minusId()}>{'<'}</CarouselLeftButton>
-        <CarouselImage margin={moveCarousel}/>
-        <CarouselImage margin={moveCarousel} style={{background:'black'}}/>
-        <CarouselRightButton onClick={()=>plusId()}>{'>'}</CarouselRightButton>
+    <CarouselLayout >
+      <CarouselLeftButton onClick={() => PrevSlide()}>{"<"}</CarouselLeftButton>
+      <SlideLayout ref={slideRef}>
+      <CarouselImage />
+      <CarouselImage  style={{ background: "black" }} />
+      <CarouselImage  style={{ background: "orange" }} />
+      </SlideLayout>
+      <CarouselRightButton onClick={() => NextSlide()}>{">"}</CarouselRightButton>
+      
     </CarouselLayout>
   );
 };
 
-const moveImage = keyframes`
-from{
-    margin-left: 0%;
-}to{
-    margin-left: -50%;
-}
-`;
+
 const CarouselLayout = styled.div`
   width: 100vw;
   height: 44vh;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   overflow: hidden;
+`;
+
+const SlideLayout = styled.div`
+  width: 100vw;
+  height: 44vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
 `
 
 const CarouselImage = styled.img`
-width: 100vw;
+  width: 100vw;
   height: 43vh;
-  margin-left: ${props=>props.margin}%;
   background-color: green;
-  background-position: 50% 50%;
   background-size: contain;
   background-repeat: no-repeat;
   flex: none;
-  transition: all 1.5s ease-out;
   z-index: 1;
-  /* animation: ${moveImage} 5s 2s infinite linear ; */
-`
+`;
 
 const CarouselLeftButton = styled.button`
-    width: 30px;
-    height: 30px;
-    left: 2vw;
-    border: 1px solid #dbdbdb;
-    border-radius: 15px;
-    position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 2vw;
+  border: 1px solid #dbdbdb;
+  border-radius: 15px;
+  position: absolute;
   z-index: 5;
   cursor: pointer;
-`
+`;
 const CarouselRightButton = styled.button`
-    width: 30px;
-    height: 30px;
-    right: 2vw;
-    border: 1px solid #dbdbdb;
-    border-radius: 15px;
-    position: absolute;
+  width: 30px;
+  height: 30px;
+  right: 2vw;
+  border: 1px solid #dbdbdb;
+  border-radius: 15px;
+  position: absolute;
   z-index: 5;
   cursor: pointer;
-`
+`;
 
 export default Carousel;

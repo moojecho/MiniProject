@@ -1,5 +1,7 @@
 import React,{ useEffect, useState,useRef } from "react";
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
+
+
 
 const Carousel = () => {
 const TOTAL_SLIDES = 2;
@@ -8,7 +10,6 @@ const slideRef = useRef(null);
 
   const NextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
-      
       setCurrentSlide(0); 
     } else {
       setCurrentSlide(currentSlide + 1);
@@ -25,11 +26,10 @@ const slideRef = useRef(null);
 
   useEffect(() => {
     slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`; // 백틱을 사용하여 슬라이드로 이동하는 에니메이션을 만듭니다.
+    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
+    console.log(slideRef.current.style.transform);
   }, [currentSlide]);
 
-  console.log(currentSlide,'currentSlide');
-//   console.log(slideRef.current.style,'slideRef.current.style');
   return (
     <CarouselLayout >
       <CarouselLeftButton onClick={() => PrevSlide()}>{"<"}</CarouselLeftButton>
@@ -54,12 +54,8 @@ const CarouselLayout = styled.div`
 `;
 
 const SlideLayout = styled.div`
-  width: 100vw;
-  height: 44vh;
   display: flex;
-  align-items: center;
   overflow: hidden;
-
 `
 
 const CarouselImage = styled.img`

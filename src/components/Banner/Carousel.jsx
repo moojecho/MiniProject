@@ -1,71 +1,77 @@
-import React,{ useEffect, useState,useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 
-
-
 const Carousel = () => {
-const TOTAL_SLIDES = 2;
-const [currentSlide, setCurrentSlide] = useState(0);
-const slideRef = useRef(null);
+  const TOTAL_SLIDES = 2;
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const slideRef = useRef(null);
 
   const NextSlide = () => {
     if (currentSlide >= TOTAL_SLIDES) {
-      setCurrentSlide(0); 
+      setCurrentSlide(currentSlide + 1);
+      setTimeout(() => setCurrentSlide(0), 1000);
     } else {
       setCurrentSlide(currentSlide + 1);
     }
   };
-  
+
   const PrevSlide = () => {
     if (currentSlide === 0) {
-      setCurrentSlide(TOTAL_SLIDES); 
+      setCurrentSlide(currentSlide - 1);
+      setTimeout(() => setCurrentSlide(TOTAL_SLIDES), 1000);
     } else {
       setCurrentSlide(currentSlide - 1);
     }
   };
 
   useEffect(() => {
-    slideRef.current.style.transition = 'all 0.5s ease-in-out';
-    slideRef.current.style.transform = `translateX(-${currentSlide}00%)`;
-    console.log(slideRef.current.style.transform);
+    if (currentSlide === -1 || currentSlide === TOTAL_SLIDES+1) {
+      slideRef.current.style.transform = `translateX(-${currentSlide}00vw)`;
+    } else {
+      slideRef.current.style.transition = "all 0.5s ease-in-out";
+      slideRef.current.style.transform = `translateX(-${currentSlide}00vw)`;
+      if (currentSlide === -1) {
+        slideRef.current.style.transform = `translateX(100vw)`;
+      }
+    }
   }, [currentSlide]);
 
   return (
-    <CarouselLayout >
+    <CarouselLayout>
       <CarouselLeftButton onClick={() => PrevSlide()}>{"<"}</CarouselLeftButton>
       <SlideLayout ref={slideRef}>
-      <CarouselImage />
-      <CarouselImage  style={{ background: "black" }} />
-      <CarouselImage  style={{ background: "orange" }} />
+        <CarouselImage style={{ background: "orange" }} />
+        <CarouselImage />
+        <CarouselImage style={{ background: "black" }} />
+        <CarouselImage style={{ background: "orange" }} />
+        {currentSlide > TOTAL_SLIDES ? <CarouselImage /> : null}
       </SlideLayout>
-      <CarouselRightButton onClick={() => NextSlide()}>{">"}</CarouselRightButton>
-      
+      <CarouselRightButton onClick={() => NextSlide()}>
+        {">"}
+      </CarouselRightButton>
     </CarouselLayout>
   );
 };
-
 
 const CarouselLayout = styled.div`
   width: 100vw;
   height: 44vh;
   display: flex;
   align-items: center;
-  overflow: hidden;
 `;
 
 const SlideLayout = styled.div`
   display: flex;
-  overflow: hidden;
-`
+`;
 
 const CarouselImage = styled.img`
+  // 슬라이드 1페이지에서 뒤로 가려 했을때 보여질 복제 슬라이드를 위한 x조정
+  translate: -100vw;
   width: 100vw;
   height: 43vh;
   background-color: green;
   background-size: contain;
-  background-repeat: no-repeat;
   flex: none;
-  z-index: 1;
 `;
 
 const CarouselLeftButton = styled.button`

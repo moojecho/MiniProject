@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
+import * as allTypes from './type';
 
 const Carousel = () => {
-  const TOTAL_SLIDES = 2;
+  const TOTAL_SLIDES : allTypes.TotalSlides = 2;
   const [currentSlide, setCurrentSlide] = useState(0);
   const slideRef = useRef(null);
 

@@ -1,6 +1,4 @@
-import styled from "styled-components";
-import { useRef, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import * as React from "react";
 
 import {Header} from "../components/Header/index"
 import {Banner} from "../components/Banner/index"

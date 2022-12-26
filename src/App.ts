@@ -10,9 +10,6 @@ function App() {
     <DivApp>
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signup" element={<SignUpPage />} />
-        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </DivApp>
   );

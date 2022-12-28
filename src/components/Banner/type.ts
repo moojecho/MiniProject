@@ -1,1 +1,3 @@
 export type TotalSlides = number;
+
+
